@@ -1,0 +1,1 @@
+include("${CMAKE_CURRENT_LIST_DIR}/@CPP_TEMPLATE_PACKAGE_NAME@-targets.cmake")

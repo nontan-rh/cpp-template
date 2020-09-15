@@ -1,0 +1,110 @@
+name: Build
+
+on:
+  schedule:
+    - cron: "0 3 * * *"
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  Spellcheck:
+    runs-on: ubuntu-18.04
+    container: nontanrh/libaramid-ci-nodejs:2020_03_22_2
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v2
+      - run: npm install
+      - run: script/spellcheck.sh
+  Tidy:
+    runs-on: ubuntu-18.04
+    container: nontanrh/libaramid-ci-clang:2020_03_22_2
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v2
+      - run: script/format.sh
+      - run: git diff --exit-code
+      - run: script/tidy.sh
+  Linux:
+    runs-on: ubuntu-18.04
+    container: nontanrh/libaramid-ci-clang:2020_03_22_2
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v2
+      - name: Test debug build
+        run: script/test.sh -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DENABLE_ASAN=ON -DDISABLE_MEMORY_REGION=ON
+      - name: Test release build
+        run: script/test.sh -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release
+      - name: Test build consumer
+        run: script/build_consumer.sh -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release
+  Windows_MSVC:
+    runs-on: windows-2019
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v2
+      - name: Test debug build
+        run: script/test.sh -G "Visual Studio 16 2019" -DCMAKE_BUILD_TYPE=Debug
+        shell: bash
+      - name: Test release build
+        run: script/test.sh -G "Visual Studio 16 2019" -DCMAKE_BUILD_TYPE=Release
+        shell: bash
+      - name: Test build consumer
+        run: script/build_consumer.sh -G "Visual Studio 16 2019" -DCMAKE_BUILD_TYPE=Release
+        shell: bash
+  Windows_MinGW:
+    runs-on: windows-2019
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v2
+      - name: Test debug build
+        run: script/test.sh -G "MSYS Makefiles" -DCMAKE_BUILD_TYPE=Debug
+        shell: bash
+      - name: Test release build
+        run: script/test.sh -G "MSYS Makefiles" -DCMAKE_BUILD_TYPE=Release
+        shell: bash
+      - name: Test build consumer
+        run: script/build_consumer.sh -G "MSYS Makefiles" -DCMAKE_BUILD_TYPE=Release
+        shell: bash
+  macOS:
+    runs-on: macos-10.15
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v2
+      - name: Test debug build
+        run: script/test.sh -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DENABLE_ASAN=ON -DDISABLE_MEMORY_REGION=ON
+      - name: Test release build
+        run: script/test.sh -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release
+      - name: Test build consumer
+        run: script/build_consumer.sh -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release
+  Android:
+    runs-on: ubuntu-18.04
+    container: nontanrh/libaramid-ci-android:2020_03_22_2
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build debug
+        run: bash etc/android/TestProject/gradlew --project-dir etc/android/TestProject assembleDebug assembleDebugAndroidTest
+      - name: Build release
+        run: bash etc/android/TestProject/gradlew --project-dir etc/android/TestProject assembleRelease assembleAndroidTest
+  iOS:
+    runs-on: macos-10.15
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build debug
+        run: xcodebuild -project etc/ios/libaramid/libaramid.xcodeproj -alltargets -configuration Debug -sdk iphonesimulator
+      - name: Build release
+        run: xcodebuild -project etc/ios/libaramid/libaramid.xcodeproj -alltargets -configuration Release -sdk iphonesimulator
+  Wasm:
+    runs-on: ubuntu-18.04
+    container: nontanrh/libaramid-ci-emscripten:2020_03_22_2
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v2
+      - name: Test debug build
+        run: script/test_emscripten.sh -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug
+      - name: Test release build
+        run: script/test_emscripten.sh -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release
