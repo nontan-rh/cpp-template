@@ -9,6 +9,22 @@ on:
 
 jobs:
   Build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
+      - name: Build
+        run: |-
+          set -euxo pipefail
+
+          docker_tag="$(date '+%Y%m%d_%H%M')"
+          git_tag="image_${docker_tag}"
+
+          printenv DOCKER_REGISTRY_PASSWORD | docker login "$DOCKER_REGISTRY_HOST" --username "$DOCKER_REGISTRY_USERNAME" --password-stdin
+          pwsh scripts/build_docker_images.ps1 /registry "$DOCKER_REGISTRY_HOST/$GITHUB_REPOSITORY" /tag "$docker_tag" /push "$DO_PUSH"
+          if [ "$DO_PUSH" = "true" ]; then git tag "$image_tag"; git push "$image_tag"; fi
+        shell: bash
+        env:
+          DO_PUSH: ${{ github.event.inputs.deploy }}
+          DOCKER_REGISTRY_HOST: docker.pkg.github.com
+          DOCKER_REGISTRY_USERNAME: ${{ github.actor }}
+          DOCKER_REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
