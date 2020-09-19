@@ -2,9 +2,10 @@ name: Build CI Image
 
 on:
   workflow_dispatch:
-    deploy:
-      description: 'Deploy images and create a tag'
-      required: false
+    inputs:
+      deploy:
+        description: 'Deploy images and create a tag'
+        default: 'false'
 
 jobs:
   Build:
