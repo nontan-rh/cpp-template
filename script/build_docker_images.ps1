@@ -1,10 +1,10 @@
 #!/usr/bin/env pwsh
 
 param (
-    [string]$registry = '',
-    [string]$prefix = '',
-    [string]$tag = '',
-    [switch]$push = $false
+    [string]$Registry = '',
+    [string]$Prefix = '',
+    [string]$Tag = '',
+    [switch]$Push = $false
 )
 
 $ErrorActionPreference = 'Stop'
@@ -19,12 +19,12 @@ $variations = @(
     'doxygen'
 )
 
-if ($registry -ne '') {
-    $registry = "${registry}/"
+if ($Registry -ne '') {
+    $Registry = "${Registry}/"
 }
 
-if ($tag -ne '') {
-    $tag = ":${tag}"
+if ($Tag -ne '') {
+    $Tag = ":${Tag}"
 }
 
 Push-Location
@@ -37,7 +37,7 @@ try {
 
     $built_tags = @()
 
-    $base_name_tag = "${registry}${prefix}base${tag}"
+    $base_name_tag = "${Registry}${Prefix}base${Tag}"
     Write-Output "building image: ${base_name_tag}"
     docker build . `
         --file 'base.dockerfile' `
@@ -51,7 +51,7 @@ try {
     Set-Location variations
 
     foreach ($variation in $variations) {
-        $variation_name_tag = "${registry}${prefix}${variation}${tag}"
+        $variation_name_tag = "${Registry}${Prefix}${variation}${Tag}"
         Write-Output "building image: ${variation_name_tag}"
         docker build . `
             --file "${variation}.dockerfile" `
@@ -63,7 +63,7 @@ try {
         $built_tags += "$variation_name_tag"
     }
 
-    if ($push) {
+    if ($Push) {
         foreach ($built_tag in $built_tags) {
             Write-Output "pushing image: ${built_tag}"
             docker push "$built_tag"
