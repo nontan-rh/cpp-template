@@ -30,7 +30,7 @@ jobs:
           if [ "$INPUTS_DEPLOY" = "true" ]; then git tag "$image_tag"; git push "$image_tag"; fi
         shell: bash
         env:
-          INPUTS_DEPLOY: ${{ github.event.inputs.deploy }}
+          INPUTS_DEPLOY: ${{ github.event.inputs.deploy || 'false' }}
           DOCKER_REGISTRY_HOST: docker.pkg.github.com
           DOCKER_REGISTRY_USERNAME: ${{ github.actor }}
           DOCKER_REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
