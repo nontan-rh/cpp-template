@@ -1,11 +1,6 @@
 name: Build CI Image
 
 on:
-  push:
-    paths:
-      - '.github/workflows/ci_image.yml'
-      - 'docker/**.dockerfile'
-      - 'script/build_docker_images.ps1'
   workflow_dispatch:
     deploy:
       description: 'Deploy images and create a tag'
