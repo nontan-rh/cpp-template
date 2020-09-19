@@ -1,9 +1,10 @@
 #!/usr/bin/env pwsh
 
+[CmdletBinding(PositionalBinding=$false)]
 param (
-    [string]$Registry = '',
-    [string]$Prefix = '',
-    [string]$Tag = '',
+    [Parameter(ValueFromPipeline=$true)][string]$Registry = '',
+    [Parameter(ValueFromPipeline=$true)][string]$Prefix = '',
+    [Parameter(ValueFromPipeline=$true)][string]$Tag = '',
     [switch]$Push = $false
 )
 
