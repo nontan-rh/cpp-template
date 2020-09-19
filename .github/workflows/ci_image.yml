@@ -20,7 +20,7 @@ jobs:
           git_tag="image_${docker_tag}"
 
           printenv DOCKER_REGISTRY_PASSWORD | docker login "$DOCKER_REGISTRY_HOST" --username "$DOCKER_REGISTRY_USERNAME" --password-stdin
-          pwsh scripts/build_docker_images.ps1 /registry "$DOCKER_REGISTRY_HOST/$GITHUB_REPOSITORY" /tag "$docker_tag" /push "$DO_PUSH"
+          pwsh script/build_docker_images.ps1 /registry "$DOCKER_REGISTRY_HOST/$GITHUB_REPOSITORY" /tag "$docker_tag" /push "$DO_PUSH"
           if [ "$DO_PUSH" = "true" ]; then git tag "$image_tag"; git push "$image_tag"; fi
         shell: bash
         env:
