@@ -3,9 +3,9 @@
 $ErrorActionPreference = 'Stop'
 
 param (
-    [string]$registry = '',
-    [string]$prefix = '',
-    [string]$tag = '',
+    [string]$registry,
+    [string]$prefix,
+    [string]$tag,
     [switch]$push = $false
 )
 
