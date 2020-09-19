@@ -27,7 +27,7 @@ jobs:
 
           printenv DOCKER_REGISTRY_PASSWORD | docker login "$DOCKER_REGISTRY_HOST" --username "$DOCKER_REGISTRY_USERNAME" --password-stdin
           pwsh script/build_docker_images.ps1 -Registry "$DOCKER_REGISTRY_HOST/$GITHUB_REPOSITORY" -Tag "$docker_tag" "-Push:\$$INPUTS_DEPLOY"
-          if [ "$INPUTS_DEPLOY" = "true" ]; then git tag "$git_tag"; git push "$git_tag"; fi
+          if [ "$INPUTS_DEPLOY" = "true" ]; then git tag "$git_tag"; git push origin "$git_tag"; fi
         shell: bash
         env:
           INPUTS_DEPLOY: ${{ github.event.inputs.deploy || 'false' }}
