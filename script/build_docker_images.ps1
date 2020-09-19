@@ -4,6 +4,7 @@
 param (
     [Parameter(ValueFromPipeline=$true)][string]$Registry = '',
     [Parameter(ValueFromPipeline=$true)][string]$Prefix = '',
+    [Parameter(ValueFromPipeline=$true)][string]$Postfix = '',
     [Parameter(ValueFromPipeline=$true)][string]$Tag = '',
     [switch]$Push = $false
 )
@@ -38,7 +39,7 @@ try {
 
     $built_tags = @()
 
-    $base_name_tag = "${Registry}${Prefix}base${Tag}"
+    $base_name_tag = "${Registry}${Prefix}base${Postfix}${Tag}"
     Write-Output "building image: ${base_name_tag}"
     docker build . `
         --file 'base.dockerfile' `
@@ -52,7 +53,7 @@ try {
     Set-Location variations
 
     foreach ($variation in $variations) {
-        $variation_name_tag = "${Registry}${Prefix}${variation}${Tag}"
+        $variation_name_tag = "${Registry}${Prefix}${variation}${Postfix}${Tag}"
         Write-Output "building image: ${variation_name_tag}"
         docker build . `
             --file "${variation}.dockerfile" `
