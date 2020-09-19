@@ -1,13 +1,13 @@
 #!/usr/bin/env pwsh
 
-$ErrorActionPreference = 'Stop'
-
 param (
-    [string]$registry,
-    [string]$prefix,
-    [string]$tag,
+    [string]$registry = '',
+    [string]$prefix = '',
+    [string]$tag = '',
     [switch]$push = $false
 )
+
+$ErrorActionPreference = 'Stop'
 
 $variations = @(
     'emscripten',
