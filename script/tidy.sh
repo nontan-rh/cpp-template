@@ -50,4 +50,4 @@ cmake "$proj_dir" \
     -DTIDY_MODE=ON
 cmake --build .
 
-clang-tidy-9 -p . ${files[@]}
+clang-tidy-11 -p . ${files[@]}

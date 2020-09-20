@@ -18,4 +18,4 @@ readonly files=(
     "$proj_dir"/test/src/**.hpp
 )
 
-clang-format-9 -i ${files[@]}
+clang-format-11 -i ${files[@]}
