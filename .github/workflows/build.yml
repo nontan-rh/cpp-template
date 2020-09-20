@@ -11,8 +11,6 @@ on:
       - master
 
 defaults:
-  timeout-minutes: 10
-  runs-on: ubuntu-18.04
   run:
     shell: bash
 
@@ -22,12 +20,16 @@ env:
 
 jobs:
   Spellcheck:
+    timeout-minutes: 10
+    runs-on: ubuntu-18.04
     container: ${{ format('{0}/nodejs:{1}', env.DOCKER_IMAGE_REGISTRY, env.DOCKER_IMAGE_TAG) }}
     steps:
       - uses: actions/checkout@v2
       - run: npm install
       - run: script/cspell.sh
   Tidy:
+    timeout-minutes: 10
+    runs-on: ubuntu-18.04
     container: ${{ format('{0}/clang:{1}', env.DOCKER_IMAGE_REGISTRY, env.DOCKER_IMAGE_TAG) }}
     steps:
       - uses: actions/checkout@v2
@@ -35,6 +37,8 @@ jobs:
       - run: git diff --exit-code
       - run: script/tidy.sh
   Linux:
+    timeout-minutes: 10
+    runs-on: ubuntu-18.04
     strategy:
       matrix:
         image: ['clang', 'gcc']
@@ -45,6 +49,7 @@ jobs:
       - run: script/test.sh -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release
       - run: script/build_consumer.sh -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release
   Windows_MSVC:
+    timeout-minutes: 10
     runs-on: windows-2019
     steps:
       - uses: actions/checkout@v2
@@ -52,6 +57,7 @@ jobs:
       - run: script/test.sh -G "Visual Studio 16 2019" -DCMAKE_BUILD_TYPE=Release
       - run: script/build_consumer.sh -G "Visual Studio 16 2019" -DCMAKE_BUILD_TYPE=Release
   Windows_MinGW:
+    timeout-minutes: 10
     runs-on: windows-2019
     steps:
       - uses: actions/checkout@v2
@@ -59,6 +65,7 @@ jobs:
       - run: script/test.sh -G "MSYS Makefiles" -DCMAKE_BUILD_TYPE=Release
       - run: script/build_consumer.sh -G "MSYS Makefiles" -DCMAKE_BUILD_TYPE=Release
   macOS:
+    timeout-minutes: 10
     runs-on: macos-10.15
     steps:
       - uses: actions/checkout@v2
@@ -66,6 +73,8 @@ jobs:
       - run: script/test.sh -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release
       - run: script/build_consumer.sh -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release
   Wasm:
+    timeout-minutes: 10
+    runs-on: ubuntu-18.04
     container: ${{ format('{0}/emscripten:{1}', env.DOCKER_IMAGE_REGISTRY, env.DOCKER_IMAGE_TAG) }}
     steps:
       - uses: actions/checkout@v2
