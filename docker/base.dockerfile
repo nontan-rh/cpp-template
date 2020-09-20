@@ -23,6 +23,8 @@ RUN apt-get install -y --no-install-recommends \
     xz-utils \
     && true
 
+RUN systemctl enable snapd
+
 # Install latest git
 
 RUN add-apt-repository ppa:git-core/ppa \
