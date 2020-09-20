@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-proj_dir=$(cd "$(dirname "$0")/.."; pwd)
+readonly proj_dir=$(cd "$(dirname "$0")/.."; pwd)
 
 /emsdk/emsdk activate latest
 . /emsdk/emsdk_env.sh
@@ -14,10 +14,10 @@ cd "$proj_dir"/build
 emcmake cmake .. "$@"
 cmake --build .
 
-test_driver_dir="$proj_dir/etc/wasm/test_driver"
+readonly test_driver_dir="$proj_dir/etc/test/wasm/test_driver"
 npm install --prefix "$test_driver_dir"
 
-old_pwd=$(pwd)
+readonly old_pwd=$(pwd)
 cd test_executable
 python3 -m http.server 8080 &
 http_server_pid=$!
