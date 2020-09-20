@@ -13,7 +13,6 @@ $ErrorActionPreference = 'Stop'
 
 $variations = @(
     'emscripten',
-    'android',
     'mingw',
     'clang',
     'gcc',

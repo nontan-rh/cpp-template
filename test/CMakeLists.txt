@@ -10,5 +10,5 @@ target_setup_compile_options(integration_test_object)
 # available before version 3.12.0
 target_include_directories(integration_test_object
     PRIVATE
-    $<TARGET_PROPERTY:gtest_main,INTERFACE_INCLUDE_DIRECTORIES>
+    $<TARGET_PROPERTY:doctest::doctest,INTERFACE_INCLUDE_DIRECTORIES>
     $<TARGET_PROPERTY:${CPP_TEMPLATE_LIBRARY_NAME},INTERFACE_INCLUDE_DIRECTORIES>)

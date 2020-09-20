@@ -1,6 +1,6 @@
-#include <sample.hpp>
+#include <sample/public.hpp>
 
-#include "sample2.hpp"
+#include "internal.hpp"
 
 namespace sample {
 

@@ -1,5 +1,5 @@
-#ifndef SAMPLE_SAMPLE_HPP
-#define SAMPLE_SAMPLE_HPP
+#ifndef SAMPLE_PUBLIC_HPP
+#define SAMPLE_PUBLIC_HPP
 
 namespace sample {
 

@@ -28,8 +28,6 @@
     "gmock",
     "gnupg",
     "googletest",
-    "gtest",
-    "gtests",
     "iwyu",
     "jclass",
     "jmethod",
