@@ -22,7 +22,7 @@ jobs:
   Spellcheck:
     timeout-minutes: 10
     runs-on: ubuntu-18.04
-    container: ${{ format('{0}/nodejs:{1}', env.DOCKER_IMAGE_REGISTRY, env.DOCKER_IMAGE_TAG) }}
+    container: 'docker.pkg.github.com/${{ github.repository }}/nodejs:20200919_1041'
     steps:
       - uses: actions/checkout@v2
       - run: npm install
