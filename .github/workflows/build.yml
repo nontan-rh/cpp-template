@@ -14,10 +14,6 @@ defaults:
   run:
     shell: bash
 
-env:
-  DOCKER_IMAGE_REGISTRY: ${{ format('{0}/{1}', 'docker.pkg.github.com', github.repository) }}
-  DOCKER_IMAGE_TAG: 20200919_1013 
-
 jobs:
   Spellcheck:
     timeout-minutes: 10
@@ -30,7 +26,7 @@ jobs:
   Tidy:
     timeout-minutes: 10
     runs-on: ubuntu-18.04
-    container: ${{ format('{0}/clang:{1}', env.DOCKER_IMAGE_REGISTRY, env.DOCKER_IMAGE_TAG) }}
+    container: 'docker.pkg.github.com/${{ github.repository }}/clang:20200919_1041'
     steps:
       - uses: actions/checkout@v2
       - run: script/format.sh
@@ -42,7 +38,7 @@ jobs:
     strategy:
       matrix:
         image: ['clang', 'gcc']
-    container: ${{ format('{0}/{1}:{2}', env.DOCKER_IMAGE_REGISTRY, matrix.image, env.DOCKER_IMAGE_TAG) }}
+    container: 'docker.pkg.github.com/${{ github.repository }}/${{ matrix.image }}:20200919_1041'
     steps:
       - uses: actions/checkout@v2
       - run: script/test.sh -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DENABLE_ASAN=ON
@@ -75,7 +71,7 @@ jobs:
   Wasm:
     timeout-minutes: 10
     runs-on: ubuntu-18.04
-    container: ${{ format('{0}/emscripten:{1}', env.DOCKER_IMAGE_REGISTRY, env.DOCKER_IMAGE_TAG) }}
+    container: 'docker.pkg.github.com/${{ github.repository }}/emscripten:20200919_1041'
     steps:
       - uses: actions/checkout@v2
       - run: script/test_emscripten.sh -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug
