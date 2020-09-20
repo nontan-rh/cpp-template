@@ -26,11 +26,19 @@ jobs:
           git_tag="image_${docker_tag}"
 
           printenv DOCKER_REGISTRY_PASSWORD | docker login "$DOCKER_REGISTRY_HOST" --username "$DOCKER_REGISTRY_USERNAME" --password-stdin
-          pwsh script/build_docker_images.ps1 -Registry "$DOCKER_REGISTRY_HOST/$GITHUB_REPOSITORY" -Tag "$docker_tag" "-Push:\$$INPUTS_DEPLOY"
-          if [ "$INPUTS_DEPLOY" = "true" ]; then git tag "$git_tag"; git push origin "$git_tag"; fi
+          pwsh script/build_docker_images.ps1 \
+            -Registry "$DOCKER_REGISTRY_HOST/$DOCKER_REGISTRY_USERNAME" \
+            -Prefix "$DOCKER_IMAGE_PREFIX" \
+            -Tag "$docker_tag" \
+            "-Push:\$$INPUTS_DEPLOY"
+          if [ "$INPUTS_DEPLOY" = "true" ]; then
+            git tag "$git_tag"
+            git push origin "$git_tag"
+          fi
         shell: bash
         env:
           INPUTS_DEPLOY: ${{ github.event.inputs.deploy || 'false' }}
-          DOCKER_REGISTRY_HOST: docker.pkg.github.com
-          DOCKER_REGISTRY_USERNAME: ${{ github.actor }}
-          DOCKER_REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+          DOCKER_REGISTRY_HOST: ghcr.io
+          DOCKER_REGISTRY_USERNAME: ${{ github.repository_owner }}
+          DOCKER_REGISTRY_PASSWORD: ${{ secrets.CR_PAT }}
+          DOCKER_IMAGE_PREFIX: cpp-template-ci-
