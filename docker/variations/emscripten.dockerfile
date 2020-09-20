@@ -20,4 +20,4 @@ RUN git clone https://github.com/emscripten-core/emsdk.git \
 RUN apt-key adv --fetch-keys "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xea6e302dc78cc4b087cfc3570ebea9b02842f111" \
     && echo 'deb http://ppa.launchpad.net/chromium-team/stable/ubuntu bionic main' >> /etc/apt/sources.list.d/chromium-team-stable.list \
     && apt-get update \
-    && apt-get install -y --no-install-recommends chromium-browser
+    && apt-get install -y --no-install-recommends -t bionic chromium-browser
