@@ -15,5 +15,9 @@ RUN git clone https://github.com/emscripten-core/emsdk.git \
 
 # Chromium Browser
 
-RUN snap install chromium
-RUN apt-get install -y --no-install-recommends chromium-browser
+# chromium-browser for focal requires snap which is not available in docker container
+# ref: https://ahelpme.com/linux/ubuntu/chromium-browser-in-ubuntu-20-04-lts-without-snap-to-use-in-docker-container/
+RUN apt-key adv --fetch-keys "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xea6e302dc78cc4b087cfc3570ebea9b02842f111" \
+    && echo 'deb http://ppa.launchpad.net/chromium-team/stable/ubuntu bionic main' >> /etc/apt/sources.list.d/chromium-team-stable.list \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends chromium-browser

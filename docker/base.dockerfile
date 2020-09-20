@@ -15,15 +15,12 @@ RUN apt-get install -y --no-install-recommends \
     make \
     ninja-build \
     python \
-    snapd \
     software-properties-common \
     ssh-client \
     unzip \
     wget \
     xz-utils \
     && true
-
-RUN systemctl enable --now snapd
 
 # Install latest git
 
