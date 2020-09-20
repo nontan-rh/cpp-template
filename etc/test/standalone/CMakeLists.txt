@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.10.2)
 cmake_policy(VERSION 3.10.2...3.10.2)
 
 set(libraries doctest::doctest ${CPP_TEMPLATE_LIBRARY_NAME})
+# In some environments, libgcc and libstdc++ are not in the search paths
+# and ctest fails with an exit code 0xc0000139 (entry point not found)
 if((NOT MSVC) AND WIN32)
     list(APPEND libraries -static-libgcc -static-libstdc++ -static)
 endif()
