@@ -23,7 +23,7 @@ RUN apt-get install -y --no-install-recommends \
     xz-utils \
     && true
 
-RUN systemctl enable snapd
+RUN systemctl enable --now snapd
 
 # Install latest git
 
