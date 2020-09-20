@@ -18,7 +18,7 @@ readonly test_driver_dir="$proj_dir/etc/test/wasm/test_driver"
 npm install --prefix "$test_driver_dir"
 
 readonly old_pwd=$(pwd)
-cd test_executable
+cd etc/test/standalone
 python3 -m http.server 8080 &
 http_server_pid=$!
 cd "$old_pwd"

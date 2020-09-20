@@ -15,6 +15,7 @@ RUN apt-get install -y --no-install-recommends \
     make \
     ninja-build \
     python \
+    snapd \
     software-properties-common \
     ssh-client \
     unzip \

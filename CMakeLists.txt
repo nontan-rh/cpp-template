@@ -8,6 +8,7 @@ project(CPP_TEMPLATE_PROJECT_NAME)
 set(CMAKE_DISABLE_SOURCE_CHANGES ON)
 
 list(APPEND CMAKE_FIND_ROOT_PATH "${CMAKE_CURRENT_BINARY_DIR}/local")
+list(APPEND CMAKE_PREFIX_PATH "${CMAKE_CURRENT_BINARY_DIR}/local")
 
 include(CMakePackageConfigHelpers)
 include(cmake/install_external_project.cmake)

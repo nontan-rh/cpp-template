@@ -15,4 +15,5 @@ RUN git clone https://github.com/emscripten-core/emsdk.git \
 
 # Chromium Browser
 
+RUN snap install chromium
 RUN apt-get install -y --no-install-recommends chromium-browser
