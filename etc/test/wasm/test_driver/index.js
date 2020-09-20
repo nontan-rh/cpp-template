@@ -11,6 +11,11 @@ const argv = yargs
   .alias('help', 'h')
   .argv;
 
+process.on('unhandledRejection', (...args) => {
+  console.dir(...args);
+  process.exit(1);
+});
+
 const chromeCapabilities = webdriver.Capabilities.chrome();
 chromeCapabilities.set('chromeOptions', { args: ['--headless', '--disable-gpu', argv.sandbox ? null : '--no-sandbox'].filter(x => !!x) });
 
