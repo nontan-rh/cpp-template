@@ -21,7 +21,7 @@ chromeCapabilities.set('chromeOptions', { args: ['--headless', '--disable-gpu', 
     .build();
   let statusCode = 1;
   try {
-    await driver.get(`http://localhost:8080/index.html?ARAMID_TEST_NUM_EXECUTORS=${argv.num_executors}`);
+    await driver.get(`http://localhost:8080/index.html`);
     const statusElement = await driver.findElement({ id: 'status' });
     const outputElement = await driver.findElement({ id: 'output' });
     await driver.wait(async function () {
