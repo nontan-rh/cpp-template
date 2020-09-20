@@ -9,7 +9,7 @@ function(install_external_project project_def_path)
         set(wrapped_cmake_command ${CMAKE_COMMAND})
     endif()
 
-    execute_process(COMMAND ${wrapped_cmake_command} .
+    execute_process(COMMAND ${wrapped_cmake_command} . -G "${CMAKE_GENERATOR}"
         RESULT_VARIABLE result
         OUTPUT_VARIABLE stdout
         ERROR_VARIABLE stderr

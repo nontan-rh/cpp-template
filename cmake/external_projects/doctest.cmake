@@ -7,6 +7,7 @@ include(ExternalProject)
 
 set(child_cmake_args
     "-DCMAKE_INSTALL_PREFIX=<INSTALL_DIR>"
+    "-G" "${CMAKE_GENERATOR}"
     )
 
 if(${CMAKE_SYSTEM_NAME} MATCHES "Emscripten")
