@@ -1,4 +1,4 @@
-# cpp_template
+# cpp-template
 
 ## Build docker images
 

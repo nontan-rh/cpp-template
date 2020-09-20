@@ -1,11 +1,7 @@
 cmake_minimum_required(VERSION 3.10.2)
 cmake_policy(VERSION 3.10.2...3.10.2)
 
-set(CPP_TEMPLATE_PROJECT_NAME          sample_project)
-set(CPP_TEMPLATE_PACKAGE_NAME          sample)
-set(CPP_TEMPLATE_PACKAGE_VERSION       0.0.1)
-set(CPP_TEMPLATE_PACKAGE_COMPATIBILITY AnyNewerVersion)
-set(CPP_TEMPLATE_LIBRARY_NAME          sample)
+include(cmake/project_config.cmake)
 
 project(CPP_TEMPLATE_PROJECT_NAME)
 
@@ -67,7 +63,7 @@ install(EXPORT package_file_targets
     )
 install(
     FILES
-    cmake/package/config.cmake
+    "${CMAKE_CURRENT_BINARY_DIR}/${CPP_TEMPLATE_PACKAGE_NAME}/${CPP_TEMPLATE_PACKAGE_NAME}-config.cmake"
     "${CMAKE_CURRENT_BINARY_DIR}/${CPP_TEMPLATE_PACKAGE_NAME}/${CPP_TEMPLATE_PACKAGE_NAME}-config-version.cmake"
     DESTINATION
     ${config_package_location}

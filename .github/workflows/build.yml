@@ -43,7 +43,7 @@ jobs:
       - uses: actions/checkout@v2
       - run: script/test.sh -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DENABLE_ASAN=ON
       - run: script/test.sh -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release
-      - run: script/build_consumer.sh -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release
+      - run: script/test_consumer.sh -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release
   Windows_MSVC:
     timeout-minutes: 10
     runs-on: windows-2019
@@ -51,7 +51,7 @@ jobs:
       - uses: actions/checkout@v2
       - run: script/test.sh -G "Visual Studio 16 2019" -DCMAKE_BUILD_TYPE=Debug
       - run: script/test.sh -G "Visual Studio 16 2019" -DCMAKE_BUILD_TYPE=Release
-      - run: script/build_consumer.sh -G "Visual Studio 16 2019" -DCMAKE_BUILD_TYPE=Release
+      - run: script/test_consumer.sh -G "Visual Studio 16 2019" -DCMAKE_BUILD_TYPE=Release
   Windows_MinGW:
     timeout-minutes: 10
     runs-on: windows-2019
@@ -59,7 +59,7 @@ jobs:
       - uses: actions/checkout@v2
       - run: script/test.sh -G "MSYS Makefiles" -DCMAKE_BUILD_TYPE=Debug
       - run: script/test.sh -G "MSYS Makefiles" -DCMAKE_BUILD_TYPE=Release
-      - run: script/build_consumer.sh -G "MSYS Makefiles" -DCMAKE_BUILD_TYPE=Release
+      - run: script/test_consumer.sh -G "MSYS Makefiles" -DCMAKE_BUILD_TYPE=Release
   macOS:
     timeout-minutes: 10
     runs-on: macos-10.15
@@ -67,7 +67,7 @@ jobs:
       - uses: actions/checkout@v2
       - run: script/test.sh -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DENABLE_ASAN=ON
       - run: script/test.sh -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release
-      - run: script/build_consumer.sh -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release
+      - run: script/test_consumer.sh -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release
   Wasm:
     timeout-minutes: 10
     runs-on: ubuntu-18.04
