@@ -18,7 +18,7 @@ jobs:
   Spellcheck:
     timeout-minutes: 10
     runs-on: ubuntu-18.04
-    container: 'ghcr.io/nontan-rh/cpp-template-ci-nodejs:20200919_1041'
+    container: 'ghcr.io/nontan-rh/cpp-template-ci-nodejs:20200920_1738'
     steps:
       - uses: actions/checkout@v2
       - run: npm install
@@ -26,7 +26,7 @@ jobs:
   Tidy:
     timeout-minutes: 10
     runs-on: ubuntu-18.04
-    container: 'ghcr.io/nontan-rh/cpp-template-ci-clang:20200919_1041'
+    container: 'ghcr.io/nontan-rh/cpp-template-ci-clang:20200920_1738'
     steps:
       - uses: actions/checkout@v2
       - run: script/format.sh
@@ -38,7 +38,7 @@ jobs:
     strategy:
       matrix:
         image: ['clang', 'gcc']
-    container: 'ghcr.io/nontan-rh/cpp-template-ci-${{ matrix.image }}:20200919_1041'
+    container: 'ghcr.io/nontan-rh/cpp-template-ci-${{ matrix.image }}:20200920_1738'
     steps:
       - uses: actions/checkout@v2
       - run: script/test.sh -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DENABLE_ASAN=ON
@@ -71,7 +71,7 @@ jobs:
   Wasm:
     timeout-minutes: 10
     runs-on: ubuntu-18.04
-    container: 'ghcr.io/nontan-rh/cpp-template-ci-emscripten:20200919_1041'
+    container: 'ghcr.io/nontan-rh/cpp-template-ci-emscripten:20200920_1738'
     steps:
       - uses: actions/checkout@v2
       - run: script/test_emscripten.sh -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug
