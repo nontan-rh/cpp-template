@@ -12,13 +12,14 @@ C++ Project Template / Boilerplate for Cross-Platform Development
   - macOS (Clang)
   - Windows (MSVC / MinGW)
   - Web (Emscripten)
-    - with Test Harness for [Selenium](https://github.com/SeleniumHQ/selenium) and [Chromium](https://www.chromium.org/)
+    - with test harness for [Selenium](https://github.com/SeleniumHQ/selenium) and [Chromium](https://www.chromium.org/)
   - Android (no testing yet)
   - iOS (no testing yet)
 - CI is fully setup
-  - Unit Testing with [doctest](https://github.com/onqtam/doctest)
+  - Unit testing with [doctest](https://github.com/onqtam/doctest)
   - Linting with [Clang-Tidy](https://clang.llvm.org/extra/clang-tidy/)
-  - Spell Checking with [cSpell](https://github.com/streetsidesoftware/cspell)
+  - Spell checking with [cSpell](https://github.com/streetsidesoftware/cspell)
+  - Sanitizers are enabled in some platforms
 - "Orthodox" Styling
   - [ClangFormat](https://clang.llvm.org/docs/ClangFormat.html)
   - [editorconfig](https://editorconfig.org/)
@@ -26,7 +27,7 @@ C++ Project Template / Boilerplate for Cross-Platform Development
   - based on Ubuntu 20.04
 - Documentation with [doxygen](https://www.doxygen.nl/index.html)
 - Unlicensed
-  - Of course, this **NEVER** applies to third party softwares included
+  - this **NEVER** applies to third party softwares included, of course
 
 ## Getting started
 
