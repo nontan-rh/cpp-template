@@ -16,6 +16,7 @@ $variations = @(
     'mingw',
     'clang',
     'gcc',
+    'android',
     'nodejs',
     'doxygen'
 )
